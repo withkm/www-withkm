@@ -1,6 +1,7 @@
 :root {
     --background: #ffffff;
     --foreground: #171717;
+    --gradientBlue: linear-gradient(to right, #5684E4 0%, #2050A8 100%);
 }
 @media (prefers-color-scheme: dark) {
     :root {
