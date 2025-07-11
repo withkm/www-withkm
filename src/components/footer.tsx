@@ -29,7 +29,6 @@ export default function Footer(){
                                     <Link
                                         href={link.url}
                                         className="text-gray-600 hover:text-gray-900 text-sm"
-                                        target="_blank"
                                         rel="noopener noreferrer"
                                     >
                                         {link.label}

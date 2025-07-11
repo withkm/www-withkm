@@ -1,7 +1,7 @@
 import Footer from "@/components/footer";
 import Navbar from "@/components/navbar";
 import {TextBlock} from "@/interfaces/core.interfaces";
-import {SparkleIcon} from "@phosphor-icons/react/ssr";
+import {RocketLaunchIcon, SparkleIcon} from "@phosphor-icons/react/ssr";
 import {heroCardContent, processesContent, servicesContent} from "@/data/content.data";
 import Image from "next/image";
 
@@ -14,7 +14,7 @@ const SectionHeader = ({ title, description }: TextBlock) => {
   );
 }
 
-const  HeroSection = () => {
+const HeroSection = () => {
   return (
     <section id="#home" className="section-wrapper">
       <p className="hero-title">
@@ -46,10 +46,9 @@ const  HeroSection = () => {
     </section>
   );
 }
-
 const ServicesSection = () => {
   return (
-    <section className="py-20 px-6 min-h-screen">
+    <section id="#services" className="py-20 px-6 min-h-screen">
       <div className="max-w-7xl mx-auto">
         <SectionHeader
           title="Our Services"
@@ -76,7 +75,6 @@ const ServicesSection = () => {
     </section>
   );
 };
-
 const ProcessesSection = () => {
   return (
     <section className="py-20 px-4">
@@ -93,6 +91,9 @@ const ProcessesSection = () => {
 
         {/* Process grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-12">
+          <div className="w-12 h-12 rounded-xl flex items-center justify-center transition-colors">
+            <RocketLaunchIcon className="w-6 h-6 text-white" />
+          </div>
           {processesContent.map((process, index) => (
             <div key={index} className="group relative">
               {/* Connection line (hidden on mobile, shown on larger screens) */}
@@ -104,8 +105,8 @@ const ProcessesSection = () => {
                 {/* Icon and label */}
                 <div className="flex items-center justify-between mb-6">
                   <div className="flex items-center space-x-3">
-                    <div className="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center group-hover:bg-blue-200 transition-colors">
-                      <process.icon className="w-6 h-6 text-blue-600" />
+                    <div className="w-12 h-12 rounded-xl flex items-center justify-center transition-colors">
+                      <process.icon className="w-6 h-6 text-white" />
                     </div>
                     <span className="text-sm font-medium text-white uppercase tracking-wide">
               {process.iconText}
@@ -179,7 +180,7 @@ const TechSection = () => {
 };
 const OurStorySection = () => {
   return(
-    <section className="section-wrapper">
+    <section id="#our-story" className="section-wrapper">
       <SectionHeader
         title="Our Story"
         description = {
@@ -210,7 +211,7 @@ const OurStorySection = () => {
 }
 const ContactUsSection = () => {
   return(
-    <section className="section-wrapper">
+    <section id="#contact-us" className="section-wrapper">
       <SectionHeader
         title="Contact Us"
         description={
@@ -222,7 +223,6 @@ const ContactUsSection = () => {
     </section>
   );
 }
-
 
 export default function Home() {
   return (
