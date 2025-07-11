@@ -1,4 +1,4 @@
-import {ReactNode} from "react";
+import {ElementType} from "react";
 
 interface NavigationLink {
     label: string;
@@ -9,7 +9,11 @@ type SocialMediaLink = NavigationLink
 interface InfoCard {
     title: string;
     description: string;
-    icon: ReactNode;
+    icon: ElementType;
+}
+
+interface ProcessInfoCard extends InfoCard {
+    iconText: string;
 }
 
 interface TextBlock {
@@ -22,6 +26,7 @@ export type {
     NavigationLink,
     SocialMediaLink,
     InfoCard,
+    ProcessInfoCard,
     TextBlock,
 };
 
