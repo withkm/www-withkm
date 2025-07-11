@@ -2,14 +2,13 @@ import {InfoCard, ProcessInfoCard, TextBlock} from "@/interfaces/core.interfaces
 import {
     HeadCircuitIcon,
     ArrowClockwiseIcon,
-    BrowserIcon,
     BugBeetleIcon,
     CodeIcon,
     LightbulbFilamentIcon,
     MagicWandIcon,
     RocketLaunchIcon,
     ListChecksIcon, BugIcon, DeviceMobileIcon
-} from "@phosphor-icons/react";
+} from "@phosphor-icons/react/ssr";
 
 const servicesContent: InfoCard[] = [
     {

@@ -1,4 +1,11 @@
-import {ElementType} from "react";
+import {ElementType, ReactNode} from "react";
+
+interface Branding{
+    address: string;
+    email: string;
+    phone: string;
+    tagline: string;
+}
 
 interface NavigationLink {
     label: string;
@@ -18,7 +25,7 @@ interface ProcessInfoCard extends InfoCard {
 
 interface TextBlock {
     title: string;
-    description: string;
+    description: ReactNode;
 }
 
 
@@ -28,6 +35,7 @@ export type {
     InfoCard,
     ProcessInfoCard,
     TextBlock,
+    Branding
 };
 
 
