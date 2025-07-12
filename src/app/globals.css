@@ -1,0 +1,78 @@
+@import url('../styles/variables.css');
+@import "tailwindcss";
+
+@font-face {
+  font-family: 'Satoshi';
+  src: url('/assets/fonts/Satoshi-Variable.ttf') format('truetype');
+  font-weight: 100 900;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Space Grotesk';
+  src: url('/assets/fonts/SpaceGrotesk-Variable.ttf') format('truetype');
+  font-weight: 100 900;
+  font-display: swap;
+}
+
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+
+}
+
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  scroll-behavior: smooth;
+}
+
+*{
+  font-family: var(--font-primary);
+  scroll-behavior: smooth;
+}
+
+.section-title{
+    font-family: var(--font-secondary);
+    font-weight: 500;
+    font-size: 1.5rem;
+    line-height: 2rem;
+    color: var(--foreground);
+}
+
+.section-subtitle{
+    font-family: var(--font-primary);
+    font-weight: 700;
+    font-size: 3.25rem;
+    line-height: 3.75rem;
+    color: var(--foreground);
+}
+
+.hero-title{
+    font-family: var(--font-primary);
+    font-weight: 700;
+    font-size: 3.5rem;
+    line-height: 4rem;
+    color: var(--foreground);
+}
+
+.section-wrapper{
+    margin: 2rem 0;
+}
+
+.hero-button{
+    background: var(--gradientBlue);
+    color: var(--foreground);
+    font-family: var(--font-primary);
+    font-weight: 500;
+    font-size: 1rem;
+    line-height: 1.75rem;
+    padding: 0.5rem 1rem;
+    border-radius: 3rem;
+    transition: background-color 0.3s ease-in-out;
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+}
