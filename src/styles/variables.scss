@@ -1,0 +1,48 @@
+:root {
+    --background: #ffffff;
+    --foreground: #171717;
+    --bg-glow: #5687E4;
+    --gradientBlue: linear-gradient(to right, #5684E4 0%, #2050A8 100%);
+    --gradientBlueDark: linear-gradient(to right, #5684E4 0%, #132341 100%);
+
+    --font-primary: 'Satoshi', sans-serif;
+    --font-secondary: 'Space Grotesk', sans-serif;
+}
+
+
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --background: #0a0a0a;
+        --foreground: #ededed;
+        --bg-glow: #2050A8;
+        --gradientBlue: linear-gradient(to right, #5684E4 0%, #2050A8 100%);
+        --gradientBlueDark: linear-gradient(to right, #5684E4 0%, #031027 100%);
+    }
+}
+
+
+
+// SCSS Mixins
+
+// circle glowy effect
+@mixin before-circle-glow($color, $size, $blur ,$top ,$left) {
+    position: relative;
+    overflow: hidden;
+
+    &::before {
+        content: "";
+        position: absolute;
+        top: $top;
+        left: $left;
+        transform: translate(-50%, -50%);
+        width: $size;
+        height: $size;
+        border-radius: 50%;
+        filter: blur($blur);
+        z-index: -1;
+        background: $color;
+    }
+}
+
+

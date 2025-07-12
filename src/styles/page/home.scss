@@ -1,0 +1,30 @@
+// Home Page Styles
+
+.home-page {
+    padding-top: 150px;
+    .main-background{
+        background: var(--background);
+        height: 100%;
+        width: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: -1;
+
+        
+
+        &::before {
+            content: "";
+            position: absolute;
+            top: 20%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 1000px;
+            height: 1000px;
+            border-radius: 50%;
+            filter: blur(150px);
+            z-index: -1;
+            background: var(--bg-glow);
+        }
+    }
+}

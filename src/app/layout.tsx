@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
-import "./globals.css";
+
+import "../styles/style.scss";
+import CursorProvider from "@/components/CursorProvider";
 
 export const metadata: Metadata = {
   title: "withkm",
@@ -15,9 +17,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body
-      >
+    <html lang="en" className="cursor-none">
+      <body className="min-h-screen bg-background text-foreground">
+        <CursorProvider />
         {children}
       </body>
     </html>

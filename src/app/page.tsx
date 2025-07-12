@@ -4,6 +4,7 @@ import {TextBlock} from "@/interfaces/core.interfaces";
 import {RocketLaunchIcon, SparkleIcon} from "@phosphor-icons/react/ssr";
 import {heroCardContent, processesContent, servicesContent} from "@/data/content.data";
 import Image from "next/image";
+import { motion } from "motion/react"
 
 const SectionHeader = ({ title, description }: TextBlock) => {
   return (
@@ -226,7 +227,10 @@ const ContactUsSection = () => {
 
 export default function Home() {
   return (
-    <main className="flex flex-col items-center justify-center">
+    <main className="home-page relative flex flex-col items-center justify-center">
+      <div className="main-background w-full h-full">
+       
+      </div>
       {/* Navbar with mx-auto */}
       <div className="w-full max-w-[1200px] mx-auto">
         <Navbar />
