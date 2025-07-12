@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState, useRef } from 'react';
-import { motion, useMotionValue, useSpring, animate } from 'framer-motion';
+import { motion, useMotionValue, useSpring,  } from 'framer-motion';
 
 export default function MagneticCursor() {
   const [isHovered, setIsHovered] = useState(false);

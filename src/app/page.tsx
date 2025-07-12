@@ -4,7 +4,6 @@ import {TextBlock} from "@/interfaces/core.interfaces";
 import {RocketLaunchIcon, SparkleIcon} from "@phosphor-icons/react/ssr";
 import {heroCardContent, processesContent, servicesContent} from "@/data/content.data";
 import Image from "next/image";
-import { motion } from "motion/react"
 
 const SectionHeader = ({ title, description }: TextBlock) => {
   return (
