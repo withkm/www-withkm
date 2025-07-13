@@ -3,14 +3,9 @@
 import { useState, useEffect } from 'react';
 import Footer from "@/components/footer";
 import Navbar from "@/components/navbar";
-import {TextBlock} from "@/interfaces/core.interfaces";
-import {RocketLaunchIcon, SparkleIcon} from "@phosphor-icons/react/ssr";
-import {heroCardContent, processesContent, servicesContent} from "@/data/content.data";
-import Image from "next/image";
 import { motion, AnimatePresence } from "motion/react"
 import HeroSection from "@/components/ui/HeroSection";
 import { ServicesSection } from "@/components/ui/ServicesSection";
-import SectionHeader from "@/components/ui/SectionHeader";
 import ProcessesSection from "@/components/ui/ProcessesSection";
 import TechSection from "@/components/ui/TechSection";
 import OurStorySection from "@/components/ui/OurStory";
