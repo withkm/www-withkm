@@ -123,7 +123,7 @@ export default function MagneticCursor() {
     return () => {
       cancelAnimationFrame(animationFrame);
     };
-  }, []);
+  }, [cursorX, cursorY]);
 
   return (
     <>
