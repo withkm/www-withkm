@@ -11,7 +11,6 @@ interface SnackbarProps {
   duration?: number;
 }
 
-// @ts-ignore
 export const Snackbar: React.FC<SnackbarProps> = ({
                                                     message,
                                                     type,
