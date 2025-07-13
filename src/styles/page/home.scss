@@ -61,13 +61,15 @@
         .hero-title{
             font-family: var(--font-primary);
             font-weight: 700;
-            font-size: 4rem;
-            line-height: 5rem;
+            // font-size: 4rem;
+            // line-height: 5rem;
             color: var(--foreground);
-        }
+        
 
+     
+          }
 
-   
+        
         
 
       
@@ -175,7 +177,11 @@ width: calc(100%);
     
   }
 
-
-
-   
 }
+
+
+
+// RESPONSIVE HERE 
+
+// In home.scss, add these responsive styles at the bottom
+

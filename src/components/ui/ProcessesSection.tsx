@@ -6,6 +6,30 @@ import { RocketLaunchIcon, ArrowClockwiseIcon } from "@phosphor-icons/react/ssr"
 import { motion, useScroll, useTransform, useInView } from "framer-motion";
 import { useRef, useState, useEffect } from "react";
 
+
+  // First, let's create a custom hook to detect mobile view
+  const useIsMobile = () => {
+    const [isMobile, setIsMobile] = useState(false);
+  
+    useEffect(() => {
+      const checkMobile = () => {
+        setIsMobile(window.innerWidth < 768);
+      };
+      
+      // Initial check
+      checkMobile();
+      
+      // Add event listener
+      window.addEventListener('resize', checkMobile);
+      
+      // Cleanup
+      return () => window.removeEventListener('resize', checkMobile);
+    }, []);
+  
+    return isMobile;
+  };
+
+
 const ProcessesSection = () => {
   const containerRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
@@ -13,8 +37,14 @@ const ProcessesSection = () => {
     offset: ["start end", "end start"]
   });
 
+
+  const isMobile = useIsMobile();
+
+
   // Create transform values based on scroll progress
   const x = useTransform(scrollYProgress, [0, 1], ["80%", "-200%"]);
+  const mobileX = useTransform(scrollYProgress, [0, 1], ["200%", "-800%"]);
+
   const opacity = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0, 1, 1, 0]);
   const y = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [100, 0, 0, 0]);
   const filter = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], ["blur(10px)", "blur(0px)", "blur(0px)", "blur(10px)"]);
@@ -49,14 +79,15 @@ const ProcessesSection = () => {
   }, []);
 
   return (
-    <section ref={containerRef} className="relative z-[0] h-[200vh] py-10 overflow-hidden">
+    <section ref={containerRef} className="overflow-hidden section-wrapper relative px-8 lg:px-[128px] z-[0] h-[500vh] lg:h-[200vh]">
       <motion.div 
         style={{ 
           y: isMounted ? y : 0, 
           opacity: isMounted ? opacity : 0, 
-          filter: isMounted ? filter : 'blur(10px)' 
+          filter: isMounted ? filter : 'blur(10px)',
+          
         }}
-        className={`${isInView ? 'fixed' : 'absolute top-0'} top-[100px] w-full h-[600px] flex flex-col justify-center`}
+        className={`${isInView ? 'fixed' : 'absolute top-0'}  top-[100px]  h-[600px] flex flex-col justify-center`}
       >
         <div className="w-full mx-auto px-4">
           <SectionHeader
@@ -72,8 +103,8 @@ const ProcessesSection = () => {
 
         <div className="relative h-[50vh] w-full">
           <motion.div 
-            style={{ x, opacity, filter }}
-            className="absolute top-0 left-0 h-full w-full flex items-center gap-8 pl-4 pr-[100vw]"
+            style={{opacity, filter, x: isMobile ? mobileX : x}}
+            className={` absolute top-0 left-0 h-full w-full flex items-center gap-8 pl-4 pr-[100vw]`}
           >
             <motion.div
               key="start-icon"
@@ -131,7 +162,7 @@ const ProcessesSection = () => {
                     }}
                   />
                   
-                  <div className="p-8 relative z-[0]">
+                  <div className="p-0 lg:p-8 md:p-8 relative z-[0]">
                     <div className="flex items-center justify-between mb-6">
                       <div className="flex items-center space-x-3">
                         <div className="w-12 h-12 rounded-xl flex items-center justify-center bg-white/5">

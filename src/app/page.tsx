@@ -67,14 +67,15 @@ export default function Home() {
               y: 0,
               transition: { delay: 0.4, duration: 0.6 }
             }}
-            className="home-page relative flex flex-col items-center justify-center"
+
+            className="overflow-hidden home-page relative flex flex-col items-center justify-center " 
           >
             <div className="main-background w-full h-full"></div>
             <div className="w-full mx-auto z-[100]">
               <Navbar />
             </div>
 
-            <div className="w-full px-[128px]">
+            <div   className="w-full">
               <HeroSection/>
               <ServicesSection />
               <ProcessesSection />
@@ -83,7 +84,7 @@ export default function Home() {
               <ContactUsSection />
             </div>
 
-            <div className="w-full mx-auto">
+            <div className="w-full">
               <Footer />
             </div>
           </motion.main>

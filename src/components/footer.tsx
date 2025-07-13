@@ -5,8 +5,8 @@ import Image from "next/image";
 
 export default function Footer(){
     return (
-        <footer className="py-20 z-[100] relative">
-            <div className="mx-auto px-30">
+        <footer className="py-20 relative px-8 lg:px-[128px]">
+            <div className="mx-auto">
                 {/* Four Columns */}
                 <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
                     {/* First Column - Branding Data */}

@@ -111,7 +111,7 @@ const ContactUsSection = () => {
   return (
     <motion.section
       id="contact-us"
-      className="section-wrapper py-20 z-[100] relative"
+      className="section-wrapper px-8 lg:px-[128px] py-20 relative"
       initial="hidden"
       whileInView="visible"
       viewport={{ once: true, margin: "-100px" }}

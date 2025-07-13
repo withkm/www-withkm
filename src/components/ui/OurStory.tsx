@@ -31,7 +31,7 @@ const OurStorySection = () => {
   return (
     <motion.section 
       id="our-story" 
-      className="section-wrapper h-[100vh]"
+      className="section-wrapper px-8 lg:px-[128px] h-[150vh] lg:h-[100vh]"
       initial="hidden"
       whileInView="show"
       viewport={{ once: true, margin: "-100px" }}
