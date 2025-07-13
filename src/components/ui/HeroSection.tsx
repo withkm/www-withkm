@@ -1,6 +1,6 @@
 "use client";
 
-import { motion, Variants, useInView  } from 'framer-motion';
+import { motion, Variants } from 'framer-motion';
 import {SparkleIcon} from "@phosphor-icons/react/ssr";
 import { heroCardContent } from '@/data/content.data';
 import { CardContainer, CardBody } from './3d-card';

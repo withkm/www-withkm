@@ -1,13 +1,12 @@
 "use client";
 
 import { motion, AnimatePresence } from "framer-motion";
-import { useEffect, useRef } from "react";
 import Lottie from "lottie-react";
 import animationData from "../lottie/Animation-Loader.json";
 
 
 export default function Loading({ isLoading }: { isLoading: boolean }) {
-  const animationRef = useRef<any>(null);
+
 
   return (
     <AnimatePresence mode="wait">

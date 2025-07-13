@@ -1,4 +1,4 @@
-import {ElementType, ReactNode} from "react";
+import {ReactNode} from "react";
 
 interface Branding{
     address: string;
