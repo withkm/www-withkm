@@ -28,6 +28,13 @@ interface TextBlock {
     description: ReactNode;
 }
 
+interface ContactFormData {
+    from_name: string;
+    from_email: string;
+    subject: string;
+    message: string;
+}
+
 
 export type {
     NavigationLink,
@@ -35,7 +42,8 @@ export type {
     InfoCard,
     ProcessInfoCard,
     TextBlock,
-    Branding
+    Branding,
+    ContactFormData
 };
 
 

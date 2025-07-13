@@ -70,7 +70,7 @@ export default function Home() {
             className="home-page relative flex flex-col items-center justify-center"
           >
             <div className="main-background w-full h-full"></div>
-            <div className="w-full mx-auto z-[1000]">
+            <div className="w-full mx-auto z-[100]">
               <Navbar />
             </div>
 
