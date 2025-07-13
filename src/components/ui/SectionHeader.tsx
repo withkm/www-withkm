@@ -44,13 +44,13 @@ const SectionHeader = ({ title, description }: TextBlock) => {
       variants={containerVariants}
     >
       <motion.p 
-        className="section-title"
+        className="section-title text-xl lg:text-2xl"
         variants={itemVariants}
       >
         {title}
       </motion.p>
       <motion.p 
-        className="section-subtitle"
+        className="section-subtitle text-3xl lg:text-5xl"
         variants={itemVariants}
       >
         {description}

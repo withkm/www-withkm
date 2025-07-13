@@ -88,7 +88,7 @@ export const ServicesSection = () => {
   };
 
   return (
-    <section id="services" className="py-20 px-6 min-h-screen" ref={ref}>
+    <section id="services" className="section-wrapper px-8 lg:px-[128px] min-h-screen" ref={ref}>
       <div className="max-w-7xl mx-auto">
         <SectionHeader
           title="Our Services"

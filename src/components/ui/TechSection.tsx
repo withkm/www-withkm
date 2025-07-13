@@ -63,7 +63,7 @@ const TechSection = () => {
 
   return (
     <motion.section 
-      className="section-wrapper z-[2] relative h-[120vh]"
+      className="section-wrapper px-8 lg:px-[128px] z-[2] relative h-[150vh] lg:h-[120vh]"
       initial="hidden"
       whileInView="show"
       viewport={{ once: true, margin: "-100px" }}
@@ -83,7 +83,7 @@ const TechSection = () => {
       </motion.div>
 
       <motion.div 
-  className="grid grid-cols-7 gap-4 mt-[100px] mx-auto lg:grid-cols-7 md:grid-cols-5 sm:grid-cols-3"
+  className="grid grid-cols-3 gap-4 mt-[100px] mx-auto lg:grid-cols-7 md:grid-cols-5 sm:grid-cols-3"
   variants={container}
   initial="hidden"
   whileInView="show"

@@ -57,25 +57,36 @@ const HeroSection = () => {
     
     const SkewScrollContainer = ({ children }: { children: React.ReactNode }) => {
       const containerRef = useRef<HTMLDivElement>(null);
+      const isMobile = typeof window !== 'undefined' ? window.innerWidth < 768 : false;
+      
       const { scrollYProgress } = useScroll({
         target: containerRef,
         offset: ["start end", "end start"]
       });
     
-      // Create transforms based on scroll progress
-      const skewX = useTransform(scrollYProgress, [0, 0.5, 1], [-15, 0, 0 ]);
-      const scale = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0.9, 1, 1, 1]);
-      const y = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [100,0, 0, 1000]);
-      const opacity = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0, 1,1, 0]);
-      const filter = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], ["blur(10px)", "blur(0px)", "blur(0px)", "blur(10px)"]);
+      // Adjust values for mobile
+      const skewX = useTransform(scrollYProgress, [0, 0.5, 1], isMobile ? [-20, 0, 0] : [-20, 0, 0]);
+      const scale = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], isMobile ? [0.95, 1, 1, 1] : [0.9, 1, 1, 1]);
+      const y = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], isMobile ? [50, 0, 0, 300] : [100, 0, 0, 1000]);
+      const opacity = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0, 1, 1, 0]);
+      const filter = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], 
+        isMobile 
+          ? ["blur(5px)", "blur(0px)", "blur(0px)", "blur(5px)"] 
+          : ["blur(10px)", "blur(0px)", "blur(0px)", "blur(10px)"]
+      );
+    
       return (
         <motion.div 
           ref={containerRef}
-          className="relative h-[300vh] -mb-[50vh] "
-          style={{ perspective: "1000px" }}
+          className="relative"
+          style={{ 
+            height: isMobile ? '100vh' : '300vh',
+            marginBottom: isMobile ? '-25vh' : '-50vh',
+            perspective: isMobile ? '500px' : '1000px'
+          }}
         >
           <motion.div 
-            className="sticky top-1/2 -translate-y-1/2 w-full"
+            className="sticky top-1/2 -translate-y-1/2 w-full px-0 lg:px-6"
             style={{
               skewX,
               scale,
@@ -104,14 +115,14 @@ const HeroSection = () => {
     };
   
     return (
-      <section id="home" className="section-wrapper z-[1]">
+      <section id="home" className="section-wrapper z-[1] px-8 lg:px-[128px]">
         <motion.div 
-          className="hero-section"
+          className="hero-section mx-auto"
           initial="hidden"
           animate="show"
           variants={container}
         >
-          <motion.div className="hero-title">
+          <motion.div className="hero-title leading-[4rem] md:leading-[5rem] lg:leading-[5rem] text-5xl lg:text-6xl">
             <motion.span variants={item} className="block">We Turn Ideas Into Powerful and</motion.span>
             <motion.span variants={item} className="block">Scalable Software That Works Just as</motion.span>
             <motion.span variants={item} className="block">
@@ -145,23 +156,24 @@ const HeroSection = () => {
 
                 }}
               />
-              <span className="relative z-10 flex items-center gap-2">
+              <a href="#contact-us" className="relative z-10 flex items-center gap-2">
                 <SparkleIcon />
                 Let's Collaborate
-              </span>
+              </a>
             </motion.button>
           </motion.div>
         </motion.div>
         
          {/* Glass Cards Row */}
-         <div className=" px-4 sm:px-6 lg:px-8">
+         <div className="px-2  lg:px-8 mt-16">
             <motion.div 
-              className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-16"
+              className="grid grid-cols-1 sm:grid-cols-1 lg:grid-cols-3 gap-6 mt-8 sm:mt-12 lg:mt-16"
               variants={container}
               initial="hidden"
               whileInView="show"
               viewport={{ once: true, margin: "-100px" }}
             >
+            
               {heroCardContent.map((content, index) => (
                 <motion.div 
                   key={index} 
@@ -191,7 +203,6 @@ const HeroSection = () => {
                 </motion.div>
               ))}
             </motion.div>
-
 
 
             {/* Video Container */}
