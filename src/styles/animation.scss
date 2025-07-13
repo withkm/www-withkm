@@ -1,0 +1,13 @@
+// animation.scss
+@keyframes glowy-blobby {
+  0%, 100% {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 0.56;
+    filter: blur(200px);
+  }
+  50% {
+    transform: translate(-50%, -50%) scale(1.15);
+    opacity: 0.8;
+    filter: blur(250px);
+  }
+}

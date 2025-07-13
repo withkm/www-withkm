@@ -1,7 +1,8 @@
 // Home Page Styles
 
 .home-page {
-    padding-top: 150px;
+    padding-top: 100px;
+
     .main-background{
         background: var(--background);
         height: 100%;
@@ -16,15 +17,165 @@
         &::before {
             content: "";
             position: absolute;
-            top: 20%;
+            top: 7%;
             left: 50%;
             transform: translate(-50%, -50%);
-            width: 1000px;
-            height: 1000px;
+            width: 700px;
+            height: 700px;
             border-radius: 50%;
-            filter: blur(150px);
+            filter: blur(200px);
             z-index: -1;
             background: var(--bg-glow);
+            animation: glowy-blobby 5s ease-in-out infinite;
+        }
+
+        &::after {
+            content: "";
+            position: absolute;
+            bottom: 20%;
+            left: 10%;
+            transform: translate(-50%, -50%);
+            width: 700px;
+            height: 700px;
+            border-radius: 50%;
+            filter: blur(300px);
+            z-index: -1;
+            background: var(--bg-glow);
+            animation: glowy-blobby 5s ease-in-out infinite;
         }
     }
+
+
+    .hero-section{
+        position: relative; 
+        // padding-top: 50px;
+        // border: solid red;
+        z-index: 1;
+        height: calc(100vh - 180px);
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+      
+        
+        .hero-title{
+            font-family: var(--font-primary);
+            font-weight: 700;
+            font-size: 4rem;
+            line-height: 5rem;
+            color: var(--foreground);
+        }
+
+
+   
+        
+
+      
+        
+
+
+
+    }
+
+    // In your home.scss or a dedicated components.scss
+.glass-card {
+  position: relative;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+width: calc(100%);
+  
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 1px;
+    border-radius: inherit;
+    background: linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.1) 0%,
+      rgba(255, 255, 255, 0.05) 30%,
+      rgba(255, 255, 255, 0.01) 100%
+    );
+    -webkit-mask: 
+      linear-gradient(#fff 0 0) content-box, 
+      linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+  }
+
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 30px -10px rgba(99, 102, 241, 0.3);
+  }
+}
+
+// Responsive adjustments
+@media (max-width: 768px) {
+  .glass-card {
+    padding: 1.5rem;
+  }
+}
+
+// Add this to your globals.scss
+.skew-scroll-container {
+    width: 100%;
+    position: relative;
+    transform-style: preserve-3d;
+    will-change: transform;
+    
+    .skew-content {
+      transform-style: preserve-3d;
+      backface-visibility: hidden;
+      will-change: transform;
+    }
+  }
+  
+  // Add this for the 3D depth effect
+  .video-container-3d {
+    transform-style: preserve-3d;
+    transform: translateZ(0);
+    will-change: transform;
+    
+    &::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        135deg,
+        rgba(255, 255, 255, 0.1) 0%,
+        rgba(255, 255, 255, 0) 50%,
+        rgba(0, 0, 0, 0.2) 100%
+      );
+      border-radius: inherit;
+      pointer-events: none;
+      z-index: 2;
+    }
+  }
+
+
+  .processes-item{
+    overflow: visible;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+
+    // line connector
+    &::after{
+        content: "";
+        position: absolute;
+       z-index: 1000;
+       width: 33px;
+       height:2px;
+       background: rgba(255, 255, 255, 0.1);
+       right: calc(33px * -1.5);
+       top: 50%;
+       transform: translateX(-50%);
+    }
+
+    &:last-child::after{
+        display: none;
+    }
+    
+  }
+
+
+
+   
 }

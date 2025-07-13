@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-
 import "../styles/style.scss";
 import CursorProvider from "@/components/CursorProvider";
 
@@ -17,9 +16,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="cursor-none">
+    <html lang="en" className="cursor-non">
+
       <body className="min-h-screen bg-background text-foreground">
-        <CursorProvider />
+      <CursorProvider />
+
         {children}
       </body>
     </html>
