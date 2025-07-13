@@ -11,6 +11,7 @@ export default function MagneticCursor() {
   const cursorX = useMotionValue(-100);
   const cursorY = useMotionValue(-100);
   const cursorSize = isHovered ? 60 : 20;
+  const hoverCheckRef = useRef<number>(0);
   
   // Smooth spring configuration
   const springConfig = { damping: 20, stiffness: 300, mass: 0.5 };
@@ -21,15 +22,43 @@ export default function MagneticCursor() {
   const magneticDistance = 20;
   const magneticStiffness = 0.2;
 
+  // Check if element is interactive
+  const isInteractiveElement = (element: Element | null): boolean => {
+    if (!element) return false;
+    
+    // Check if current element matches our selectors
+    if (element.matches('a, button, .hoverable, [role="button"], [data-cursor-hover]')) {
+      return true;
+    }
+    
+    // Check if any parent matches our selectors
+    return !!element.closest('a, button, .hoverable, [role="button"], [data-cursor-hover]');
+  };
+
   useEffect(() => {
     const moveCursor = (e: MouseEvent) => {
       cursorX.set(e.clientX - cursorSize / 2);
       cursorY.set(e.clientY - cursorSize / 2);
 
-      // Magnetic effect on hover
-      if (cursorRef.current && isHovered) {
-        const rect = document.elementFromPoint(e.clientX, e.clientX)?.getBoundingClientRect();
-        if (rect) {
+      // Throttle hover state updates for better performance
+      if (hoverCheckRef.current) {
+        cancelAnimationFrame(hoverCheckRef.current);
+      }
+
+      let currentElement: Element | null = null;
+      let currentIsHovering = false;
+
+      hoverCheckRef.current = requestAnimationFrame(() => {
+        currentElement = document.elementFromPoint(e.clientX, e.clientY);
+        currentIsHovering = currentElement ? isInteractiveElement(currentElement) : false;
+        
+        if (currentIsHovering !== isHovered) {
+          setIsHovered(currentIsHovering);
+        }
+
+        // Magnetic effect on hover
+        if (cursorRef.current && currentIsHovering && currentElement) {
+          const rect = currentElement.getBoundingClientRect();
           const centerX = rect.left + rect.width / 2;
           const centerY = rect.top + rect.height / 2;
           const distanceX = centerX - e.clientX;
@@ -42,40 +71,26 @@ export default function MagneticCursor() {
             cursorY.set(e.clientY - cursorSize / 2 + distanceY * power * magneticStiffness);
           }
         }
-      }
+      });
     };
 
     // Click animation
     const handleMouseDown = () => setIsClicking(true);
     const handleMouseUp = () => setIsClicking(false);
 
-    // Hover effect for interactive elements
-    const handleLinkHover = () => setIsHovered(true);
-    const handleLinkLeave = () => setIsHovered(false);
-
-    const clickableElements = document.querySelectorAll(
-      'a, button, [role="button"], [data-cursor-hover]'
-    );
-
     // Add event listeners
     window.addEventListener('mousemove', moveCursor);
     window.addEventListener('mousedown', handleMouseDown);
     window.addEventListener('mouseup', handleMouseUp);
-    
-    clickableElements.forEach((el) => {
-      el.addEventListener('mouseenter', handleLinkHover);
-      el.addEventListener('mouseleave', handleLinkLeave);
-    });
 
     // Cleanup
     return () => {
       window.removeEventListener('mousemove', moveCursor);
       window.removeEventListener('mousedown', handleMouseDown);
       window.removeEventListener('mouseup', handleMouseUp);
-      clickableElements.forEach((el) => {
-        el.removeEventListener('mouseenter', handleLinkHover);
-        el.removeEventListener('mouseleave', handleLinkLeave);
-      });
+      if (hoverCheckRef.current) {
+        cancelAnimationFrame(hoverCheckRef.current);
+      }
     };
   }, [cursorX, cursorY, cursorSize, isHovered]);
 
@@ -115,7 +130,7 @@ export default function MagneticCursor() {
       {/* Outer cursor with blur effect */}
       <motion.div
         ref={cursorRef}
-        className="fixed rounded-full pointer-events-none z-[9999] cursor-glass"
+        className="fixed rounded-full pointer-events-none z-[9999] "
         style={{
           translateX: cursorXSpring,
           translateY: cursorYSpring,
@@ -123,14 +138,20 @@ export default function MagneticCursor() {
           height: cursorSize,
           backgroundColor: 'rgba(255, 255, 255, 0.8)',
           
+          
         }}
         animate={{
           scale: isHovered ? 1.5 : 1,
           opacity: isClicking ? 0.7 : 1,
+          backgroundColor: isHovered ? 'rgba(255, 255, 255, 0.2)' : 'rgba(255, 255, 255, 0.8)',
+        backdropFilter:'saturate(400%)',
+        
+
         }}
         transition={{
           scale: { type: 'spring', stiffness: 500, damping: 20 },
-          opacity: { duration: 0.15 }
+          opacity: { duration: 0.15 },
+
         }}
       />
 
@@ -146,7 +167,7 @@ export default function MagneticCursor() {
         }}
         animate={{
           scale: isHovered ? 0.5 : isClicking ? 0.8 : 1,
-          backgroundColor: isHovered ? 'rgba(255, 255, 255, 0.9)' : 'rgba(255, 255, 255, 1)',
+          backgroundColor: isHovered ? 'rgba(255, 255, 255, 0)' : 'rgba(255, 255, 255, 1)',
         }}
         transition={{
           scale: { type: 'spring', stiffness: 500, damping: 20 },

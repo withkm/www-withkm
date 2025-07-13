@@ -5,13 +5,13 @@ import Image from "next/image";
 
 export default function Footer(){
     return (
-        <footer className="py-8">
-            <div className="mx-auto px-4">
+        <footer className="py-20 z-[100] relative">
+            <div className="mx-auto px-30">
                 {/* Four Columns */}
                 <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
                     {/* First Column - Branding Data */}
                     <div>
-                        <Image src='/assets/branding/withkm-logo.svg' alt="withkm-logo" width={140} height={28}/>
+                        <Image className="pb-3" src='/assets/branding/withkm-logo.svg' alt="withkm-logo" width={140} height={28}/>
                         <p className="text-gray-600 mb-2">{brandingData.tagline}</p>
                         <div className="space-y-2 text-sm text-gray-600">
                             <p>{brandingData.address}</p>

@@ -1,0 +1,217 @@
+"use client";
+
+import { motion, Variants, useInView  } from 'framer-motion';
+import {SparkleIcon} from "@phosphor-icons/react/ssr";
+import { heroCardContent } from '@/data/content.data';
+import { CardContainer, CardBody } from './3d-card';
+import { useState } from 'react';
+import { useScroll, useTransform } from 'framer-motion';
+import { useRef } from 'react';
+
+
+const HeroSection = () => {
+
+
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+
+    // Animation variants with proper typing
+    const container: Variants = {
+      hidden: { opacity: 0 },
+      show: {
+        opacity: 1,
+        transition: {
+          staggerChildren: 0.3, // Reduced stagger for better timing
+          delayChildren: 0.5,  // Reduced initial delay
+        }
+      }
+    };
+  
+    const item: Variants = {
+      hidden: { y: 20, opacity: 0 },
+      show: { 
+        y: 0, 
+        opacity: 1,
+        transition: {
+          type: 'spring',
+          stiffness: 100,
+          damping: 15
+        }
+      }
+    };
+  
+    // Button specific variant with delay
+    const buttonItem: Variants = {
+      hidden: { y: 20, opacity: 0 },
+      show: {
+        y: 0,
+        opacity: 1,
+        transition: {
+          type: 'spring',
+          stiffness: 100,
+          damping: 15,
+          delay: 1.2 // This will make the button appear after the text
+        }
+      }
+    };
+
+    
+    const SkewScrollContainer = ({ children }: { children: React.ReactNode }) => {
+      const containerRef = useRef<HTMLDivElement>(null);
+      const { scrollYProgress } = useScroll({
+        target: containerRef,
+        offset: ["start end", "end start"]
+      });
+    
+      // Create transforms based on scroll progress
+      const skewX = useTransform(scrollYProgress, [0, 0.5, 1], [-15, 0, 0 ]);
+      const scale = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0.9, 1, 1, 1]);
+      const y = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [100,0, 0, 1000]);
+      const opacity = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0, 1,1, 0]);
+      const filter = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], ["blur(10px)", "blur(0px)", "blur(0px)", "blur(10px)"]);
+      return (
+        <motion.div 
+          ref={containerRef}
+          className="relative h-[300vh] -mb-[50vh] "
+          style={{ perspective: "1000px" }}
+        >
+          <motion.div 
+            className="sticky top-1/2 -translate-y-1/2 w-full"
+            style={{
+              skewX,
+              scale,
+              y,
+              opacity,
+              transformStyle: "preserve-3d",
+              filter,
+              willChange: "transform, opacity"
+            }}
+          >
+            {children}
+          </motion.div>
+        </motion.div>
+      );
+    };
+
+
+
+    
+
+    const handleMouseMove = (e: React.MouseEvent) => {
+      const rect = e.currentTarget.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      setMousePosition({ x, y });
+    };
+  
+    return (
+      <section id="home" className="section-wrapper z-[1]">
+        <motion.div 
+          className="hero-section"
+          initial="hidden"
+          animate="show"
+          variants={container}
+        >
+          <motion.div className="hero-title">
+            <motion.span variants={item} className="block">We Turn Ideas Into Powerful and</motion.span>
+            <motion.span variants={item} className="block">Scalable Software That Works Just as</motion.span>
+            <motion.span variants={item} className="block">
+              You <span className="text-gradient">Imagined</span>.
+            </motion.span>
+          </motion.div>
+  
+          <motion.div
+            variants={buttonItem}
+            initial="hidden"
+            animate="show"
+            className="mt-8"
+          >
+            <motion.button 
+              className="hero-button group relative overflow-hidden"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.98 }}
+              onMouseMove={handleMouseMove}
+            >
+              <motion.span 
+                className="absolute inset-0 bg-gradient-to-r from-blue-500 to-purple-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                style={{
+                  backgroundSize: '200% 100%',
+                  zIndex: -1,
+                  background: `radial-gradient(
+                    600px circle at ${mousePosition.x}px ${mousePosition.y}px,
+                    rgba(255, 255, 255, 0.3) 0%,
+                    rgba(100, 150, 250, 0.1) 20%,
+                    rgba(255, 255, 255, 0) 30%
+                  )`,
+
+                }}
+              />
+              <span className="relative z-10 flex items-center gap-2">
+                <SparkleIcon />
+                Let's Collaborate
+              </span>
+            </motion.button>
+          </motion.div>
+        </motion.div>
+        
+         {/* Glass Cards Row */}
+         <div className=" px-4 sm:px-6 lg:px-8">
+            <motion.div 
+              className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-16"
+              variants={container}
+              initial="hidden"
+              whileInView="show"
+              viewport={{ once: true, margin: "-100px" }}
+            >
+              {heroCardContent.map((content, index) => (
+                <motion.div 
+                  key={index} 
+                
+                  variants={item}
+                >
+              
+                  {/* Content */}
+                  <CardContainer
+                  className='w-full d-flex justify-center align-items-center '
+                    > 
+                    <CardBody className='glass-card min-h-[300px] hoverable group relative overflow-hidden rounded-2xl p-8  border border-white/10 bg-gradient-to-br from-white/5 to-white/[0.02] shadow-2xl shadow-black/20 hover:shadow-primary/20 transition-all duration-500'>
+                  
+                        <h3 className="text-3xl font-semibold text-white  mb-4 flex items-left">
+                          <span className="rounded-full bg-primary-400 group-hover:scale-150 transition-transform duration-300" />
+                          {content.title}
+                        </h3>
+                        <p className="text-white/70 text-xl leading-relaxed">
+                          {content.description}
+                        </p>
+                      
+                    </CardBody>
+                  </CardContainer>
+                  
+                  {/* Decorative elements */}
+                  <div className="absolute -right-6 -bottom-6 w-32 h-32 bg-primary-500/10 rounded-full blur-2xl group-hover:scale-150 transition-transform duration-700" />
+                </motion.div>
+              ))}
+            </motion.div>
+
+
+
+            {/* Video Container */}
+            <SkewScrollContainer>
+                <motion.div 
+                  className="mt-[300px] h-[70vh] rounded-3xl overflow-hidden border border-white/10 
+                          bg-gradient-to-br from-white/5 to-white/[0.02] backdrop-blur-xl 
+                          shadow-2xl shadow-black/20">
+                  <div className="aspect-video bg-gradient-to-br from-primary-900/30 to-primary-500/20 
+                                flex items-center justify-center relative overflow-hidden">
+                    <div className="absolute inset-0 bg-gradient-to-br from-transparent via-transparent to-black/20" />
+                    <p className="text-white/70 text-lg font-medium relative z-10">
+                      Place looping video here
+                    </p>
+                  </div>
+                </motion.div>
+              </SkewScrollContainer>
+            
+          </div>
+      </section>
+    );
+  };
+export default HeroSection;

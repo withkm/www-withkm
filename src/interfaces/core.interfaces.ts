@@ -16,7 +16,7 @@ type SocialMediaLink = NavigationLink
 interface InfoCard {
     title: string;
     description: string;
-    icon: ElementType;
+    icon: React.ComponentType<{ className?: string }>;
 }
 
 interface ProcessInfoCard extends InfoCard {

@@ -1,29 +1,43 @@
 :root {
-    --background: #ffffff;
-    --foreground: #171717;
-    --bg-glow: #5687E4;
-    --gradientBlue: linear-gradient(to right, #5684E4 0%, #2050A8 100%);
-    --gradientBlueDark: linear-gradient(to right, #5684E4 0%, #132341 100%);
+    --primary-color:#567CF8;
+    --secondary-color:#f1f1f1;
+    // --background: #ffffff;
+    // --foreground: #171717;
+    // --bg-glow: #2A5AB399;
+
 
     --font-primary: 'Satoshi', sans-serif;
     --font-secondary: 'Space Grotesk', sans-serif;
+
+    --background: #0a0a0a;
+    --foreground: #ededed;
+    --bg-glow: #2050A8;
+    --gradientBlue: linear-gradient(to right, #5684E4 0%, #2050A8 100%);
+    --gradientBlueDark: linear-gradient(to right, #5684E4 0%, #031027 100%);
 }
 
 
-
-@media (prefers-color-scheme: dark) {
-    :root {
-        --background: #0a0a0a;
-        --foreground: #ededed;
-        --bg-glow: #2050A8;
-        --gradientBlue: linear-gradient(to right, #5684E4 0%, #2050A8 100%);
-        --gradientBlueDark: linear-gradient(to right, #5684E4 0%, #031027 100%);
-    }
+.text-gradient{
+    background: linear-gradient(0deg, var(--primary-color), var(--secondary-color));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
 }
 
 
+// @media (prefers-color-scheme: dark) {
+//     :root {
+//         --background: #0a0a0a;
+//         --foreground: #ededed;
+//         --bg-glow: #2050A8;
+//         --gradientBlue: linear-gradient(to right, #5684E4 0%, #2050A8 100%);
+//         --gradientBlueDark: linear-gradient(to right, #5684E4 0%, #031027 100%);
+//     }
+// }
 
-// SCSS Mixins
+
+  
+
+
 
 // circle glowy effect
 @mixin before-circle-glow($color, $size, $blur ,$top ,$left) {
