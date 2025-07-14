@@ -65,44 +65,47 @@ const HeroSection = () => {
       });
     
       // Adjust values for mobile
-      const skewX = useTransform(scrollYProgress, [0, 0.5, 1], isMobile ? [-20, 0, 0] : [-20, 0, 0]);
-      const scale = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], isMobile ? [0.95, 1, 1, 1] : [0.9, 1, 1, 1]);
-      const y = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], isMobile ? [50, 0, 0, 300] : [100, 0, 0, 1000]);
+      const skewX = useTransform(scrollYProgress, [0, 0.5, 1], [-20, 0, 0]);
+      const scale = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0.95, 1, 1, 1]);
+      const y = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [300, 0, 0, 300]);
       const opacity = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0, 1, 1, 0]);
       const filter = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], 
-        isMobile 
-          ? ["blur(5px)", "blur(0px)", "blur(0px)", "blur(5px)"] 
-          : ["blur(10px)", "blur(0px)", "blur(0px)", "blur(10px)"]
+        ["blur(5px)", "blur(0px)", "blur(0px)", "blur(5px)"] 
       );
     
       return (
-        <motion.div 
+        <div 
           ref={containerRef}
           className="relative"
           style={{ 
-            height: isMobile ? '100vh' : '300vh',
-            marginBottom: isMobile ? '-25vh' : '-50vh',
-            perspective: isMobile ? '500px' : '1000px'
+            height: isMobile ? '100vh' : '80vh',
+            marginBottom: isMobile ? '-25vh' : '-10vh',
           }}
         >
           <motion.div 
-            className="sticky top-1/2 -translate-y-1/2 w-full px-0 lg:px-6"
+            className="sticky  -translate-y-1/4 w-full px-0 lg:px-6"
             style={{
-              skewX,
-              scale,
-              y,
-              opacity,
               transformStyle: "preserve-3d",
-              filter,
               willChange: "transform, opacity"
             }}
           >
-            {children}
+            <motion.div
+              className="w-full h-full"
+              style={{
+                transform: 'perspective(1000px)',
+                skewX: skewX,
+                scale: scale,
+                y: y,
+                opacity: opacity,
+                filter: filter
+              }}
+            >
+              {children}
+            </motion.div>
           </motion.div>
-        </motion.div>
+        </div>
       );
     };
-
 
 
     
@@ -205,20 +208,18 @@ const HeroSection = () => {
             </motion.div>
 
 
-            {/* Video Container */}
-            <SkewScrollContainer>
-                <motion.div 
+            {/* video loop Container */}
+              <SkewScrollContainer>
+                <div 
                   className="mt-[300px] h-[70vh] rounded-3xl overflow-hidden border border-white/10 
                           bg-gradient-to-br from-white/5 to-white/[0.02] backdrop-blur-xl 
                           shadow-2xl shadow-black/20">
-                  <div className="aspect-video bg-gradient-to-br from-primary-900/30 to-primary-500/20 
+                  <div className="h-full w-full bg-gradient-to-br from-primary-900/30 to-primary-500/20 
                                 flex items-center justify-center relative overflow-hidden">
                     <div className="absolute inset-0 bg-gradient-to-br from-transparent via-transparent to-black/20" />
-                    <p className="text-white/70 text-lg font-medium relative z-10">
-                      Place looping video here
-                    </p>
-                  </div>
-                </motion.div>
+                    <video src="./assets/videos/loop-withkm.mp4" autoPlay loop muted className="w-full h-full object-position-center object-cover"/>
+                  </div> 
+                </div>
               </SkewScrollContainer>
             
           </div>

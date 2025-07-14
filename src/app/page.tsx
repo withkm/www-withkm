@@ -26,29 +26,43 @@ export default function Home() {
           img.onerror = resolve; // Resolve even if there's an error
         });
       });
-
+  
+      // Wait for all videos to load
+      const videos = Array.from(document.querySelectorAll('video'));
+      const videoPromises = videos.map(video => {
+        if (video.readyState >= 2) return Promise.resolve(); // 2 = HAVE_CURRENT_DATA
+        return new Promise((resolve) => {
+          video.oncanplay = resolve;
+          video.onerror = resolve;
+        });
+      });
+  
       // Also wait for fonts to load
       const fontPromises = document.fonts ? 
         document.fonts.ready.then(() => {}) : 
         Promise.resolve();
-
+  
       // Wait for all assets to load or timeout after 5 seconds
-      Promise.all([
-        ...imagePromises,
-        fontPromises,
-        // Add any other critical asset loading here
+      Promise.race([
+        Promise.all([
+          ...imagePromises,
+          ...videoPromises,
+          fontPromises,
+        ]),
+        // Add a timeout to prevent infinite loading
+        new Promise(resolve => setTimeout(resolve, 5000))
       ]).finally(() => {
         // Add a small delay for a smoother transition
-        setTimeout(() => setIsLoading(false), 2500);
+        setTimeout(() => setIsLoading(false), 500);
       });
     };
-
+  
     if (document.readyState === 'complete') {
       handleLoad();
     } else {
       window.addEventListener('load', handleLoad);
     }
-
+  
     return () => {
       window.removeEventListener('load', handleLoad);
     };
